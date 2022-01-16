@@ -1,7 +1,7 @@
 package com.esper.BUMAPP.Product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,18 +17,18 @@ public class Product {
 
     private @NotNull
     String name;
-    private @NotNull String imageURL;
     private @NotNull double price;
+    private @NotNull String description;
 
     public Product() {
     }
 
     @JsonIgnore
-    public Product(String name, String imageURL, double price) {
+    public Product(String name, double price, String description) {
         super();
         this.name = name;
-        this.imageURL = imageURL;
         this.price = price;
+        this.description = description;
 
     }
 
@@ -36,7 +36,7 @@ public class Product {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -48,14 +48,6 @@ public class Product {
         this.name = name;
     }
 
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
-
     public double getPrice() {
         return price;
     }
@@ -64,4 +56,11 @@ public class Product {
         this.price = price;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

@@ -8,15 +8,16 @@ import java.util.List;
 @Service
 public class UserService {
 
-    @Autowired private UserProfileRepository userRepo;
+    @Autowired
+    private UserProfileRepository userProfileRepository;
 
 
     public void addProfile(UserProfile userProfile) {
-        userRepo.save(userProfile);
+        userProfileRepository.save(userProfile);
     }
 
     public List<UserProfile> listProfiles(){
-        return userRepo.findAll();
+        return userProfileRepository.findAll();
     }
 
 }

@@ -10,19 +10,20 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/user")
-public class    UserController {
+public class    UserProfileController {
 
-    @Autowired private UserService userService;
+    @Autowired private UserProfileService userProfileService;
 
     @GetMapping("/")
     public ResponseEntity<List<UserProfile>> getUsers() {
-        List<UserProfile> dtos = userService.listProfiles();
+        List<UserProfile> dtos = userProfileService.listProfiles();
         return new ResponseEntity<List<UserProfile>>(dtos, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> addSurvey(@RequestBody UserProfile profile) {
-        userService.addProfile(profile);
-        return new ResponseEntity<>(new ApiResponse(true, "Profile has been created."), HttpStatus.CREATED);
+    public ResponseEntity<ApiResponse> addSurvey (@RequestBody UserProfile profile) {
+        userProfileService.addProfile(profile);
+        return new ResponseEntity<>(new ApiResponse(true,
+                "Profile has been created."), HttpStatus.CREATED);
     }
 }

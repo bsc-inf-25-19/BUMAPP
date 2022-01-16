@@ -1,9 +1,11 @@
 package com.esper.BUMAPP.Product;
 
+import com.esper.BUMAPP.category.Category;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+
 @Entity
 @Table(name = "products")
 public class Product {
@@ -12,31 +14,43 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private @NotNull
-    String name;
+    private @NotNull String name;
+    private @NotNull String imageURL;
     private @NotNull double price;
     private @NotNull String description;
 
-    public Product() {
-    }
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "category_id", nullable = false)
+    Category category;
 
     @JsonIgnore
-    public Product(String name, double price, String description) {
-        super();
-        this.name = name;
-        this.price = price;
-        this.description = description;
 
+    public Product(ProductDto productDto, Category category) {
+        this.name = productDto.getName();
+        this.imageURL = productDto.getImageURL();
+        this.description = productDto.getDescription();
+        this.price = productDto.getPrice();
+        this.category = category;
     }
 
-    public Product(ProductDto productDto) {
+    public Product(String name, String imageURL, double price, String description, Category category) {
+        super();
+        this.name = name;
+        this.imageURL = imageURL;
+        this.price = price;
+        this.description = description;
+        this.category = category;
+    }
+
+    public Product() {
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -46,6 +60,14 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public double getPrice() {
@@ -62,5 +84,24 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", imageURL='" + imageURL + '\'' +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

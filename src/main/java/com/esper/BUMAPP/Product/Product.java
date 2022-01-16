@@ -1,12 +1,9 @@
 package com.esper.BUMAPP.Product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.validation.constraints.NotNull;
-import lombok.Data;
 
 import javax.persistence.*;
-@Data
-
+import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "products")
 public class Product {
@@ -30,6 +27,9 @@ public class Product {
         this.price = price;
         this.description = description;
 
+    }
+
+    public Product(ProductDto productDto) {
     }
 
     public Integer getId() {

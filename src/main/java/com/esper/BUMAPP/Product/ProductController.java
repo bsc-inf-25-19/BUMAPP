@@ -17,7 +17,7 @@ public class ProductController {
 
     @GetMapping("/")
     public ResponseEntity<List<Product>> getProduct() {
-        List<Product> dtos = productService.();
+        List<Product> body = productService.l();
         return new ResponseEntity<List<UserProfile>>(dtos, HttpStatus.OK);
 
 
